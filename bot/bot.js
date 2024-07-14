@@ -7,6 +7,8 @@ import { mainButtons } from './buttons.js/mainButton.js';
 import { aloqaFn, commands, startFn } from './command.js';
 import { pool } from '../src/database/db.js';
 import { inlineOrder } from './buttons.js/inline.buttons.js';
+import { sendImage } from './services/service.js';
+// import { captions } from './buttons.js/captions.js';
 
 
 export const startBot = async (token) => {
@@ -123,7 +125,7 @@ Narxi: ${price} so'm\n
                 const { name, text, price, image_url } = dataResult.rows[i];
                 const pathe = path.join(process.cwd(), 'uploads', image_url);
 
-                const capgullar = `#aksessuar\n
+                const capgullar = `#kitoblar\n
 ${name}\n
 ${text}\n
 Narxi: ${price} so'm\n
@@ -160,7 +162,7 @@ Narxi: ${price} so'm\n
                 const { name, text, price, image_url } = dataResult.rows[i];
                 const pathe = path.join(process.cwd(), 'uploads', image_url);
 
-                const capgullar = `#aksessuar\n
+                const capgullar = `#shirinliklar\n
 ${name}\n
 ${text}\n
 Narxi: ${price} so'm\n
@@ -192,11 +194,12 @@ Narxi: ${price} so'm\n
             if (dataResult.rows.length == 0) {
                 return msg.reply("👕 Kiyimlar hozir mavjud emas ")
             }
+            // sendImage(dataResult, captions.kiyim)
             for (let i = 0; i < dataResult.rows.length; i++) {
                 const { name, text, price, image_url } = dataResult.rows[i];
                 const pathe = path.join(process.cwd(), 'uploads', image_url);
 
-                const capgullar = `#aksessuar\n
+                const capgullar = `#kiyimlar\n
 ${name}\n
 ${text}\n
 Narxi: ${price} so'm\n
@@ -222,8 +225,6 @@ Narxi: ${price} so'm\n
     });
 
 
-
-
     const imageDirectoryPath = path.join(process.cwd(), 'uploads');
 
     const getImageFiles = () => {
@@ -243,29 +244,29 @@ Narxi: ${price} so'm\n
         });
     };
 
-    bot.on('message:text', async (msg) => {
-        try {
-            const imageFiles = await getImageFiles();
-            // imageFiles[0]?.consumed = true
-            console.log(imageFiles);
+    // bot.on('message:text', async (msg) => {
+    //     try {
+    //         const imageFiles = await getImageFiles();
+    // imageFiles[0]?.consumed = true
+    //         console.log(imageFiles);
 
-            if (imageFiles.length > 0) {
-                const mediaGroup = imageFiles.map((image, index) => ({
-                    type: 'photo',
-                    media: image,
-                    caption: `Image ${index + 1}`,
-                    parse_mode: 'HTML'
-                }));
-                console.log(mediaGroup)
-                await msg.replyWithMediaGroup(mediaGroup);
-            } else {
-                await msg.reply('No images found in the directory.');
-            }
-        } catch (error) {
-            console.error(error);
-            await msg.reply('Error sending images.');
-        }
-    });
+    //         if (imageFiles.length > 0) {
+    //             const mediaGroup = imageFiles.map((image, index) => ({
+    //                 type: 'photo',
+    //                 media: image,
+    //                 caption: `Image ${index + 1}`,
+    //                 parse_mode: 'HTML'
+    //             }));
+    //             console.log(mediaGroup)
+    //             await msg.replyWithMediaGroup(mediaGroup);
+    //         } else {
+    //             await msg.reply('No images found in the directory.');
+    //         }
+    //     } catch (error) {
+    //         console.error(error);
+    // await msg.reply('Error sending images.');
+    //     }
+    // });
 
 
 

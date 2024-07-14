@@ -36,7 +36,6 @@ export const aloqaFn = async (msg) => {
             },
             'Admin'
         );
-
         console.log('Contact sent successfully');
     } catch (error) {
         console.error('Error sending contact:', error);
