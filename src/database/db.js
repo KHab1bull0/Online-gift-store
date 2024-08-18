@@ -5,13 +5,12 @@ import dotenv from 'dotenv';
 dotenv.config()
 
 
-const {Pool } = pg
+const { Pool } = pg
 
 const { DBURI } = process.env
 const config = pkg.parse(DBURI)
-config.ssl = {
-    rejectUnauthorized: false,
-  };
+console.log(config);
+
 
 
 export const pool = new Pool(config);
